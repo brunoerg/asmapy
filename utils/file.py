@@ -1,5 +1,5 @@
 import sys
-import asmap
+from asmap import ASMap, net_to_prefix, prefix_to_net
 import ipaddress
 
 def load_file(input_file, state=None):
@@ -8,7 +8,7 @@ def load_file(input_file, state=None):
     except OSError as err:
         sys.exit("Input file '%s' cannot be read: %s." % (input_file.name, err.strerror))
     try:
-        bin_asmap = asmap.ASMap.from_binary(contents)
+        bin_asmap = ASMap.from_binary(contents)
     except ValueError:
         bin_asmap = None
     txt_error = None
@@ -43,12 +43,12 @@ def load_file(input_file, state=None):
                 txt_error = "invalid network '%s'" % prefix
                 entries = None
                 break
-            entries.append((asmap.net_to_prefix(net), int(asn[2:])))
+            entries.append((net_to_prefix(net), int(asn[2:])))
     if entries is not None and bin_asmap is not None and len(contents) > 0:
         sys.exit("Input file '%s' is ambiguous." % input_file.name)
     if entries is not None:
         if state is None:
-            state = asmap.ASMap()
+            state = ASMap()
         state.update_multi(entries)
         return state
     if bin_asmap is not None:
@@ -68,7 +68,7 @@ def save_binary(output_file, state, fill):
 
 def save_text(output_file, state, fill, overlapping):
     for prefix, asn in state.to_entries(fill=fill, overlapping=overlapping):
-        net = asmap.prefix_to_net(prefix)
+        net = prefix_to_net(prefix)
         try:
             print("%s AS%i" % (net, asn), file=output_file)
         except OSError as err:
