@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import datetime
 import urllib.request
 import shutil
@@ -67,18 +69,19 @@ NOW = datetime.datetime.now() - datetime.timedelta(seconds=300000)
 NOWSTR = NOW.strftime("%Y%m%d")
 DIRNAME = "data-%s/" % NOWSTR
 
-if not os.path.exists(DIRNAME):
-    os.mkdir(DIRNAME)
-for filename, url in FILES.items():
-    fullpath = DIRNAME + filename
-    eurl = NOW.strftime(url)
-    if not os.path.exists(fullpath):
-        print("Downloading %s from %s" % (filename, eurl))
-        if os.path.exists(fullpath + ".part"):
-            os.remove(fullpath + ".part")
-        try:
-            with urllib.request.urlopen(eurl) as response, open(fullpath + ".part", "wb") as out_file:
-                shutil.copyfileobj(response, out_file)
-            os.rename(fullpath + ".part", fullpath)
-        except OSError as err:
-            print("Failed to download %s: %s" % (filename, err))
+def construct():
+    if not os.path.exists(DIRNAME):
+        os.mkdir(DIRNAME)
+    for filename, url in FILES.items():
+        fullpath = DIRNAME + filename
+        eurl = NOW.strftime(url)
+        if not os.path.exists(fullpath):
+            print("Downloading %s from %s" % (filename, eurl))
+            if os.path.exists(fullpath + ".part"):
+                os.remove(fullpath + ".part")
+            try:
+                with urllib.request.urlopen(eurl) as response, open(fullpath + ".part", "wb") as out_file:
+                    shutil.copyfileobj(response, out_file)
+                os.rename(fullpath + ".part", fullpath)
+            except OSError as err:
+                print("Failed to download %s: %s" % (filename, err))
