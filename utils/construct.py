@@ -1,7 +1,6 @@
 import datetime
 import urllib.request
 import shutil
-import tempfile
 import os
 import os.path
 
