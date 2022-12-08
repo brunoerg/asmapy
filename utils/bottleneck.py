@@ -4,7 +4,6 @@
 
 import ipaddress
 import sys
-import copy
 import re
 import itertools
 
