@@ -24,7 +24,7 @@ def main():
     parser_diff.add_argument('infile2', type=argparse.FileType('rb'),
                              help="second file to compare (text or binary)")
     subparsers.add_parser("download", help="download dumps")
-    parser_convert = subparsers.add_parser("convert", help="convert dump files to human-readable dumps (getting unique originating ASN for this prefix")
+    parser_convert = subparsers.add_parser("convert", help="convert dump files to human-readable dumps (getting unique originating ASN for this prefix)")
     parser_convert.add_argument('path', help="path with files to be converted")
     parser_convert = subparsers.add_parser("to-binary", help="convert human-readable dump into binary asmap file")
     parser_convert.add_argument('path', help="path to the file to be converted")
