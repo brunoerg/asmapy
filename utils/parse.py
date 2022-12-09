@@ -9,18 +9,17 @@ def parse(dir):
                 print(f"Processing {file}...")
                 to_dump = ""
                 for entry in bgp:
-                    if isinstance(entry.body, TableDumpV2):
-                        prefix = '%s/%d' % (entry.body.prefix, entry.body.prefixLength)
-                        list_ASN = set([
-                            route.attr.asPath
-                            for route
-                            in entry.body.routeEntries])
-                    else:
-                        prefix = '%s/%d' % (entry.body.prefix, entry.body.mask)
-                        list_ASN = [entry.body.peerAS]
+                    if not isinstance(entry.body, TableDumpV2):
+                        continue
 
-                    for item in list(list_ASN):
-                        to_dump += f'{prefix}|{item}\n'
+                    prefix = '%s/%d' % (entry.body.prefix, entry.body.prefixLength)
+                    originating_ASN = set([
+                        route.attr.asPath.split()[-1]
+                        for route
+                        in entry.body.routeEntries])
+
+                    for item in list(originating_ASN):
+                        to_dump += f'{prefix} AS{item}\n'
 
                 if not os.path.exists("paths"):
                     os.mkdir("paths")
