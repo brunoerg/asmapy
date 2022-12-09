@@ -7,30 +7,12 @@ import argparse
 import sys
 import ipaddress
 import math
-from utils import asmap, construct
-from utils.file import load_file, save_binary, save_text
+from utils import asmap, construct, parse, convert_to_binary
+from utils.file import load_file
 
 def main():
     parser = argparse.ArgumentParser(description="Tool for performing various operations on texual and binary asmap files.")
     subparsers = parser.add_subparsers(title="valid subcommands", dest="subcommand")
-
-    parser_encode = subparsers.add_parser("encode", help="convert asmap data to binary format")
-    parser_encode.add_argument('-f', '--fill', dest="fill", default=False, action="store_true",
-                               help="permit reassigning undefined network ranges arbitrarily to reduce size")
-    parser_encode.add_argument('infile', nargs='?', type=argparse.FileType('rb'), default=sys.stdin.buffer,
-                               help="input asmap file (text or binary); default is stdin")
-    parser_encode.add_argument('outfile', nargs='?', type=argparse.FileType('wb'), default=sys.stdout.buffer,
-                               help="output binary asmap file; default is stdout")
-
-    parser_decode = subparsers.add_parser("decode", help="convert asmap data to text format")
-    parser_decode.add_argument('-f', '--fill', dest="fill", default=False, action="store_true",
-                               help="permit reassigning undefined network ranges arbitrarily to reduce length")
-    parser_decode.add_argument('-n', '--nonoverlapping', dest="overlapping", default=True, action="store_false",
-                               help="output strictly non-overallping network ranges (increases output size)")
-    parser_decode.add_argument('infile', nargs='?', type=argparse.FileType('rb'), default=sys.stdin.buffer,
-                               help="input asmap file (text or binary); default is stdin")
-    parser_decode.add_argument('outfile', nargs='?', type=argparse.FileType('w'), default=sys.stdout,
-                               help="output text file; default is stdout")
 
     parser_diff = subparsers.add_parser("diff", help="compute the difference between two asmap files")
     parser_diff.add_argument('-i', '--ignore-unassigned', dest="ignore_unassigned", default=False, action="store_true",
@@ -42,16 +24,18 @@ def main():
     parser_diff.add_argument('infile2', type=argparse.FileType('rb'),
                              help="second file to compare (text or binary)")
     subparsers.add_parser("download", help="download dumps")
+    parser_convert = subparsers.add_parser("convert", help="convert dump files to human-readable dumps (getting unique originating ASN for this prefix")
+    parser_convert.add_argument('path', help="path with files to be converted")
+    parser_convert = subparsers.add_parser("to-binary", help="convert human-readable dump into binary asmap file")
+    parser_convert.add_argument('path', help="path to the file to be converted")
 
     args = parser.parse_args()
     if args.subcommand is None:
         parser.print_help()
-    elif args.subcommand == "encode":
-        state = load_file(args.infile)
-        save_binary(args.outfile, state, fill=args.fill)
-    elif args.subcommand == "decode":
-        state = load_file(args.infile)
-        save_text(args.outfile, state, fill=args.fill, overlapping=args.overlapping)
+    elif args.subcommand == "convert":
+        parse.parse(args.path)
+    elif args.subcommand == "to-binary":
+        convert_to_binary.convert_to_binary(args.path)
     elif args.subcommand == "diff":
         state1 = load_file(args.infile1)
         state2 = load_file(args.infile2)
