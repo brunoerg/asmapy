@@ -25,6 +25,6 @@ valid subcommands:
   {diff,download,convert,to-binary}
     diff                compute the difference between two asmap files
     download            download dumps
-    convert             convert dump files to human-readable dumps (getting unique originating ASN for this prefix)
+    to-human-readable   convert dump files to human-readable dumps (getting unique originating ASN for this prefix)
     to-binary           convert human-readable dump into binary asmap file
 ```

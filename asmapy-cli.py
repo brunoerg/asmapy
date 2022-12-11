@@ -7,7 +7,10 @@ import argparse
 import sys
 import ipaddress
 import math
-from utils import asmap, construct, parse, convert_to_binary
+from utils.asmap import prefix_to_net
+from utils.parse import parse
+from utils.construct import construct
+from utils.convert_to_binary import convert_to_binary
 from utils.file import load_file
 
 def main():
@@ -24,7 +27,7 @@ def main():
     parser_diff.add_argument('infile2', type=argparse.FileType('rb'),
                              help="second file to compare (text or binary)")
     subparsers.add_parser("download", help="download dumps")
-    parser_convert = subparsers.add_parser("convert", help="convert dump files to human-readable dumps (getting unique originating ASN for this prefix)")
+    parser_convert = subparsers.add_parser("to-human-readable", help="convert dump files to human-readable dumps (getting unique originating ASN for this prefix)")
     parser_convert.add_argument('path', help="path with files to be converted")
     parser_convert = subparsers.add_parser("to-binary", help="convert human-readable dump into binary asmap file")
     parser_convert.add_argument('path', help="path to the file to be converted")
@@ -32,10 +35,10 @@ def main():
     args = parser.parse_args()
     if args.subcommand is None:
         parser.print_help()
-    elif args.subcommand == "convert":
-        parse.parse(args.path)
+    elif args.subcommand == "to-human-readable":
+        parse(args.path)
     elif args.subcommand == "to-binary":
-        convert_to_binary.convert_to_binary(args.path)
+        convert_to_binary(args.path)
     elif args.subcommand == "diff":
         state1 = load_file(args.infile1)
         state2 = load_file(args.infile2)
@@ -44,7 +47,7 @@ def main():
         for prefix, old_asn, new_asn in state1.diff(state2):
             if args.ignore_unassigned and old_asn == 0:
                 continue
-            net = asmap.prefix_to_net(prefix)
+            net = prefix_to_net(prefix)
             if isinstance(net, ipaddress.IPv4Network):
                 ipv4_changed += 1 << (32 - net.prefixlen)
             elif isinstance(net, ipaddress.IPv6Network):
@@ -57,7 +60,7 @@ def main():
                 print("%s AS%i # was AS%i" % (net, new_asn, old_asn))
         print("# %i (2^%f) IPv4 addresses changed; %i (2^%f) IPv6 addresses changed" % (ipv4_changed, math.log2(ipv4_changed), ipv6_changed, math.log2(ipv6_changed)))
     elif args.subcommand == "download":
-        construct.construct()
+        construct()
     else:
         parser.print_help()
         sys.exit("No command provided.")
