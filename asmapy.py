@@ -5,9 +5,7 @@
 
 import argparse
 import sys
-import ipaddress
-import math
-from utils.asmap import prefix_to_net
+from utils.diff import diff
 from utils.parse import parse
 from utils.construct import construct
 from utils.convert_to_binary import convert_to_binary
@@ -43,25 +41,7 @@ def main():
     elif args.subcommand == "to-binary":
         convert_to_binary(args.path)
     elif args.subcommand == "diff":
-        state1 = load_file(args.infile1)
-        state2 = load_file(args.infile2)
-        ipv4_changed = 0
-        ipv6_changed = 0
-        for prefix, old_asn, new_asn in state1.diff(state2):
-            if args.ignore_unassigned and old_asn == 0:
-                continue
-            net = prefix_to_net(prefix)
-            if isinstance(net, ipaddress.IPv4Network):
-                ipv4_changed += 1 << (32 - net.prefixlen)
-            elif isinstance(net, ipaddress.IPv6Network):
-                ipv6_changed += 1 << (128 - net.prefixlen)
-            if new_asn == 0:
-                print("# %s was AS%i" % (net, old_asn))
-            elif old_asn == 0:
-                print("%s AS%i # was unassigned" % (net, new_asn))
-            else:
-                print("%s AS%i # was AS%i" % (net, new_asn, old_asn))
-        print("# %i (2^%f) IPv4 addresses changed; %i (2^%f) IPv6 addresses changed" % (ipv4_changed, math.log2(ipv4_changed), ipv6_changed, math.log2(ipv6_changed)))
+        diff(args.infile1, args.infile2, args.ignore_unassigned)
     elif args.subcommand == "download":
         construct(args.date)
     else:
