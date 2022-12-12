@@ -10,11 +10,11 @@ $ pip install -r requirements.txt
 ```
 
 ```sh
-$ ./asmapy-cli.py -h
+$ ./asmapy.py -h
 ```
 
 ```sh
-usage: asmapy-cli.py [-h] {diff,download,convert,to-binary} ...
+usage: asmapy.py [-h] {diff,download,convert,to-binary} ...
 
 Tool for performing various operations on texual and binary asmap files.
 
