@@ -21,7 +21,7 @@ def parse(dir):
                     for item in list(originating_ASN):
                         to_dump += f'{prefix} AS{item}\n'
 
-                if not os.path.exists("paths"):
-                    os.mkdir("paths")
-                with open(f'paths/{file}', 'w') as w_file:
+                if not os.path.exists(f"paths-{dir}"):
+                    os.mkdir(f"paths-{dir}")
+                with open(f'paths-{dir}/{file}', 'w') as w_file:
                     w_file.write(to_dump)
