@@ -12,6 +12,8 @@ from utils.parse import parse
 from utils.construct import construct
 from utils.convert_to_binary import convert_to_binary
 from utils.file import load_file
+from utils.valid_date import valid_date
+
 
 def main():
     parser = argparse.ArgumentParser(description="Tool for performing various operations on texual and binary asmap files.")
@@ -26,7 +28,8 @@ def main():
                              help="first file to compare (text or binary)")
     parser_diff.add_argument('infile2', type=argparse.FileType('rb'),
                              help="second file to compare (text or binary)")
-    subparsers.add_parser("download", help="download dumps")
+    parser_download = subparsers.add_parser("download", help="download dumps")
+    parser_download.add_argument('date', help="date to fetch dumps (format: YYYYMMDD)", type=valid_date)
     parser_convert = subparsers.add_parser("to-human-readable", help="convert dump files to human-readable dumps (getting unique originating ASN for this prefix)")
     parser_convert.add_argument('path', help="path with files to be converted")
     parser_convert = subparsers.add_parser("to-binary", help="convert human-readable dump into binary asmap file")
@@ -60,7 +63,7 @@ def main():
                 print("%s AS%i # was AS%i" % (net, new_asn, old_asn))
         print("# %i (2^%f) IPv4 addresses changed; %i (2^%f) IPv6 addresses changed" % (ipv4_changed, math.log2(ipv4_changed), ipv6_changed, math.log2(ipv6_changed)))
     elif args.subcommand == "download":
-        construct()
+        construct(args.date)
     else:
         parser.print_help()
         sys.exit("No command provided.")
