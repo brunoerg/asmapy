@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-import datetime
 import urllib.request
 import shutil
 import os
 import os.path
+from datetime import datetime
 
 FILES = {
     "routeviews.bz2": "http://archive.routeviews.org/bgpdata/%Y.%m/RIBS/rib.%Y%m%d.0000.bz2",
@@ -65,16 +65,14 @@ FILES = {
     "ripe-26.gz": "https://data.ris.ripe.net/rrc26/%Y.%m/bview.%Y%m%d.0000.gz",
 }
 
-NOW = datetime.datetime.now() - datetime.timedelta(seconds=300000)
-NOWSTR = NOW.strftime("%Y%m%d")
-DIRNAME = "data-%s/" % NOWSTR
-
-def construct():
+def construct(date):
+    DIRNAME = "data-%s/" % date
     if not os.path.exists(DIRNAME):
         os.mkdir(DIRNAME)
     for filename, url in FILES.items():
         fullpath = DIRNAME + filename
-        eurl = NOW.strftime(url)
+        datetime_obj = datetime.strptime(date, '%Y%m%d')
+        eurl = datetime_obj.strftime(url)
         if not os.path.exists(fullpath):
             print("Downloading %s from %s" % (filename, eurl))
             if os.path.exists(fullpath + ".part"):
