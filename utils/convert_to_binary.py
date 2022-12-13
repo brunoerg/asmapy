@@ -1,6 +1,7 @@
 import ipaddress
 from utils import asmap
 
+
 def convert_to_binary(file):
     elems = []
     with open(file, "r") as f:
@@ -16,11 +17,10 @@ def convert_to_binary(file):
             if len(s) != 2 or not s[1].startswith("AS"):
                 print("Line '%s' is not valid" % line)
                 exit(1)
-            # Some entries may be {1234} instead of 1234
+            # Some entries may be AS_SET
             if "{" in s[1][2:]:
                 asn = s[1][2:].replace("{", "")
                 asn = asn.replace("}", "")
-                # TODO check cases there are more than one AS
                 if "," in asn:
                     asn = asn.split(",")[0]
                 asn = int(asn)
