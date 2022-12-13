@@ -21,7 +21,7 @@ options:
   -h, --help            show this help message and exit
 
 valid subcommands:
-  {diff,download,convert,to-binary}
+  {diff,download,to-human-readable,to-binary}
     diff                compute the difference between two asmap files
     download            download dumps
     to-human-readable   convert dump files to human-readable dumps (getting unique originating ASN for this prefix)
