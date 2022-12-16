@@ -9,7 +9,7 @@ from utils.diff import diff
 from utils.parse import parse
 from utils.construct import construct
 from utils.convert_to_binary import convert_to_binary
-from utils.file import load_file
+from utils.aggregate import aggregate
 from utils.valid_date import valid_date
 
 
@@ -30,6 +30,8 @@ def main():
     parser_download.add_argument('date', help="date to fetch dumps (format: YYYYMMDD)", type=valid_date)
     parser_convert = subparsers.add_parser("to-human-readable", help="convert dump files to human-readable dumps (getting unique originating ASN for this prefix)")
     parser_convert.add_argument('path', help="path with files to be converted")
+    parser_aggregate = subparsers.add_parser("aggregate", help="Aggregates paths and assigns every IP prefix to the first element of the common suffix of the asn path")
+    parser_aggregate.add_argument('path', help="path with files to be aggregated")
     parser_convert.add_argument('-a', '--allasn', dest="all_asn",
                                  help="fetch all ASN for every prefix instead of unique originating ones", default=False, action="store_true")
     parser_binary = subparsers.add_parser("to-binary", help="convert human-readable dump into binary asmap file")
@@ -40,6 +42,8 @@ def main():
         parser.print_help()
     elif args.subcommand == "to-human-readable":
         parse(args.path, args.all_asn)
+    elif args.subcommand == "aggregate":
+        aggregate(args.path)
     elif args.subcommand == "to-binary":
         convert_to_binary(args.path)
     elif args.subcommand == "diff":
