@@ -45,6 +45,8 @@ After downloading the dumps, they will be available in a folder (e.g. `data-2022
 $ ./asmapy.py to-human-readable data-20220202
 ```
 
+Use `--allasn` to fetch all ASN for every prefix instead of unique originating one.
+
 #### 3. Converting a file to binary
 
 ```sh
