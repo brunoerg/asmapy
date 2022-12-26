@@ -46,7 +46,8 @@ $ ./asmapy.py to-human-readable data-20220202
 ```
 
 Use `--allasn` to fetch all ASN for every prefix instead of unique originating one.
-Use `--singleoutput` to combine all dumps into one file
+
+Use `--singleoutput` to combine all dumps into one file.
 
 #### 3. Converting a file to binary
 
