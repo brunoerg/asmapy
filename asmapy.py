@@ -32,6 +32,8 @@ def main():
     parser_convert.add_argument('path', help="path with files to be converted")
     parser_convert.add_argument('-a', '--allasn', dest="all_asn",
                                  help="fetch all ASN for every prefix instead of unique originating ones", default=False, action="store_true")
+    parser_convert.add_argument('-so', '--singleoutput', dest="single_output",
+                                 help="combine all dumps into one file", default=False, action="store_true")
     parser_binary = subparsers.add_parser("to-binary", help="convert human-readable dump into binary asmap file")
     parser_binary.add_argument('path', help="path to the file to be converted")
 
@@ -39,7 +41,7 @@ def main():
     if args.subcommand is None:
         parser.print_help()
     elif args.subcommand == "to-human-readable":
-        parse(args.path, args.all_asn)
+        parse(args.path, args.all_asn, args.single_output)
     elif args.subcommand == "to-binary":
         convert_to_binary(args.path)
     elif args.subcommand == "diff":
