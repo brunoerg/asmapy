@@ -9,7 +9,7 @@ from utils.diff import diff
 from utils.parse import parse
 from utils.construct import construct
 from utils.convert_to_binary import convert_to_binary
-from utils.file import load_file
+from utils.bottleneck import bottleneck
 from utils.valid_date import valid_date
 
 
@@ -36,12 +36,16 @@ def main():
                                  help="combine all dumps into one file", default=False, action="store_true")
     parser_binary = subparsers.add_parser("to-binary", help="convert human-readable dump into binary asmap file")
     parser_binary.add_argument('path', help="path to the file to be converted")
+    parser_mapping = subparsers.add_parser("to-mapping", help="convert (sets of) human-readable dumps into a text file with iprange->asn mappings")
+    parser_mapping.add_argument('path', help="path to the file to be converted")
 
     args = parser.parse_args()
     if args.subcommand is None:
         parser.print_help()
     elif args.subcommand == "to-human-readable":
         parse(args.path, args.all_asn, args.single_output)
+    elif args.subcommand == "to-mapping":
+        bottleneck(args.path)
     elif args.subcommand == "to-binary":
         convert_to_binary(args.path)
     elif args.subcommand == "diff":
