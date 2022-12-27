@@ -13,7 +13,7 @@ $ ./asmapy.py -h
 ```
 
 ```sh
-usage: asmapy.py [-h] {diff,download,to-human-readable,to-binary} ...
+usage: asmapy.py [-h] {diff,download,to-human-readable,to-binary,to-mapping} ...
 
 Tool for performing various operations on texual and binary asmap files.
 
@@ -21,11 +21,12 @@ options:
   -h, --help            show this help message and exit
 
 valid subcommands:
-  {diff,download,to-human-readable,to-binary}
+  {diff,download,to-human-readable,to-binary,to-mapping}
     diff                compute the difference between two asmap files
     download            download dumps
     to-human-readable   convert dump files to human-readable dumps (getting unique originating ASN for this prefix)
     to-binary           convert human-readable dump into binary asmap file
+    to-mapping          convert (sets of) human-readable dumps into a text file with iprange->asn mappings
 ```
 
 
