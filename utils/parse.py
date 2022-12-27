@@ -21,7 +21,7 @@ def parse(dir, all_asn=False, single_output=True):
                             in entry.body.routeEntries])
 
                         for item in list(list_ASN):
-                                routes.append(f'{prefix} AS{item}\n')
+                            routes.append(f'{prefix} AS{item}\n')
                     else:
                         list_ASN = set([
                             route.attr.asPath
@@ -29,7 +29,7 @@ def parse(dir, all_asn=False, single_output=True):
                             in entry.body.routeEntries])
                         
                         for item in list(list_ASN):
-                                routes.append(f'{prefix}|{item}\n')
+                            routes.append(f'{prefix}|{item}\n')
                 
                 if not single_output:
                     if not os.path.exists(f"paths-{dir}"):
