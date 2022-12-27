@@ -49,13 +49,22 @@ Use `--allasn` to fetch all ASN for every prefix instead of unique originating o
 
 Use `--singleoutput` to combine all dumps into one file.
 
-#### 3. Converting a file to binary
+####  3. Converting human-readable dumps into a text file with iprange->asn mappings
+
+After converting the dumps using `to-human-readable --singleoutput`, you're gonna have one file with all dumps, it means we can have duplicated stuff. 
+For this reason, you can use the following command to convert them into a text file with iprange->asn mappings.
+
+```sh
+$ ./asmapy.py to-mapping path/to/file
+```
+
+#### 4. Converting a file to binary
 
 ```sh
 $ ./asmapy.py to-binary path/to/file
 ```
 
-#### 4. Comparing two files
+#### Comparing two files
 
 ```sh
 $ ./asmapy.py diff path/to/file1 path/to/file2
