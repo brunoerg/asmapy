@@ -43,7 +43,7 @@ $ ./asmapy.py download 20220202
 After downloading the dumps, they will be available in a folder (e.g. `data-20220202`), and you can use that directory in the following command to convert them to a human-readable format:
 
 ```sh
-$ ./asmapy.py to-human-readable data-20220202
+$ ./asmapy.py to-human-readable data-20220202 --singleoutput
 ```
 
 Use `--allasn` to fetch all ASN for every prefix instead of unique originating one.
