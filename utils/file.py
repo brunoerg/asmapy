@@ -2,6 +2,7 @@ import sys
 from .asmap import ASMap, net_to_prefix, prefix_to_net
 import ipaddress
 
+
 def load_file(input_file, state=None):
     try:
         contents = input_file.read()

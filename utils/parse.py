@@ -3,6 +3,7 @@
 import os
 from bgpdumpy import BGPDump, TableDumpV2
 
+
 def parse(dir, all_asn=False, single_output=True):
     routes = []
     for entry_file in os.scandir(dir):

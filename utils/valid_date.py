@@ -1,6 +1,7 @@
 import argparse
 from datetime import datetime
 
+
 def valid_date(s):
     try:
         datetime.strptime(s, "%Y%m%d")

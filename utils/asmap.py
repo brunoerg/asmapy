@@ -14,6 +14,7 @@ from enum import Enum
 from functools import total_ordering
 from typing import Callable, Dict, Iterable, List, Optional, Tuple, Union, overload
 
+
 def net_to_prefix(net: Union[ipaddress.IPv4Network,ipaddress.IPv6Network]) -> List[bool]:
     """
     Convert an IPv4 or IPv6 network to a prefix represented as a list of bits.

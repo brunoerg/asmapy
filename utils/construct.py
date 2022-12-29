@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
-
 import urllib.request
 import os
 import os.path
 from datetime import datetime
+
 
 FILES = {
     "routeviews.bz2": "http://archive.routeviews.org/bgpdata/%Y.%m/RIBS/rib.%Y%m%d.0000.bz2",
