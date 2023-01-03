@@ -29,7 +29,7 @@ def main():
     parser_download = subparsers.add_parser("download", help="download dumps")
     parser_download.add_argument('date', help="date to fetch dumps (format: YYYYMMDD)", type=valid_date)
     parser_convert = subparsers.add_parser("to-human-readable", help="convert dump files to human-readable dumps (getting unique originating ASN for this prefix)")
-    parser_convert.add_argument('path', help="path with files to be converted")
+    parser_convert.add_argument('-p', '--paths', nargs='+', default=[], help="paths with files to be converted", dest="paths")
     parser_convert.add_argument('-a', '--allasn', dest="all_asn",
                                  help="fetch all ASN for every prefix instead of unique originating ones", default=False, action="store_true")
     parser_convert.add_argument('-so', '--singleoutput', dest="single_output",
@@ -43,7 +43,7 @@ def main():
     if args.subcommand is None:
         parser.print_help()
     elif args.subcommand == "to-human-readable":
-        parse(args.path, args.all_asn, args.single_output)
+        parse(args.paths, args.all_asn, args.single_output)
     elif args.subcommand == "to-mapping":
         bottleneck(args.path)
     elif args.subcommand == "to-binary":
