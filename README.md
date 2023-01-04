@@ -1,4 +1,4 @@
-# Asmapy - Asmap stuff for Bitcoin Core
+# Asmapy - Asmap | Bitcoin Core
 
 CLI to download dumps, convert dump files to human-readable ones, compare two files, and other stuff. Some codes presented here were originally written in [sipa/asmap](https://github.com/sipa/asmap/tree/nextgen).
 
