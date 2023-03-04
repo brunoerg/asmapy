@@ -26,6 +26,7 @@ def main():
                              help="first file to compare (text or binary)")
     parser_diff.add_argument('infile2', type=argparse.FileType('rb'),
                              help="second file to compare (text or binary)")
+    parser_diff.add_argument('--ips', default="", help="Path to file with ips. It will print the ASNs related to that ips which has changed", dest="ips_path")
     parser_download = subparsers.add_parser("download", help="download dumps")
     parser_download.add_argument('date', help="date to fetch dumps (format: YYYYMMDD)", type=valid_date)
     parser_convert = subparsers.add_parser("to-human-readable", help="convert dump files to human-readable dumps (getting unique originating ASN for this prefix)")
@@ -49,7 +50,11 @@ def main():
     elif args.subcommand == "to-binary":
         convert_to_binary(args.path)
     elif args.subcommand == "diff":
-        diff(args.infile1, args.infile2, args.ignore_unassigned)
+        if args.ips_path:
+            with open(args.ips_path) as f:
+                diff(args.infile1, args.infile2, args.ignore_unassigned, f.read().splitlines())
+        else:
+            diff(args.infile1, args.infile2, args.ignore_unassigned)
     elif args.subcommand == "download":
         construct(args.date)
     else:

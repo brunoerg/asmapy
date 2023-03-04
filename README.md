@@ -79,3 +79,4 @@ $ ./asmapy.py diff path/to/file1 path/to/file2
 Optional flags:
 - `--ignore-unassigned` to ignore unassigned ranges in the first input (useful when second input is filled).
 - `--unified` to get output diff in `unified` format.
+- `-ips=` Path to file with ips. It will print the ASNs related to that ips which has changed
