@@ -5,12 +5,12 @@
 
 import argparse
 import sys
-from utils.diff import diff
-from utils.parse import parse
-from utils.construct import construct
-from utils.convert_to_binary import convert_to_binary
-from utils.bottleneck import bottleneck
-from utils.valid_date import valid_date
+from src.diff import diff
+from src.bgpdump_parse import parse
+from src.construct import construct
+from src.convert_to_binary import convert_to_binary
+from src.bottleneck import bottleneck
+from src.utils import valid_date
 
 
 def main():

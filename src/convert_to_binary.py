@@ -1,5 +1,5 @@
 import ipaddress
-from utils import asmap
+from src import asmap
 
 
 def convert_to_binary(file):

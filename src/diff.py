@@ -2,8 +2,8 @@ import ipaddress
 import math
 import re 
 
-from utils.file import load_file
-from utils.asmap import prefix_to_net
+from src.file import load_file
+from src.asmap import prefix_to_net
 
 
 def remove_port(ips=[]):
