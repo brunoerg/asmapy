@@ -67,7 +67,7 @@ For this reason, you can use the following command to convert them into a text f
 #### 4. Converting a file to binary
 
 ```sh
-./asmapy.py to-binary path/to/file
+./asmapy.py to-binary path/to/file 
 ```
 
 #### Comparing two files
