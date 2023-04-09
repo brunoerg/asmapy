@@ -5,11 +5,11 @@ CLI to download dumps, convert dump files to human-readable ones, compare two fi
 ### Installing and running
 
 ```sh
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ```sh
-$ ./asmapy.py -h
+./asmapy.py -h
 ```
 
 ```sh
@@ -30,12 +30,12 @@ valid subcommands:
 ```
 
 
-#### 1. Downloading dumps
+#### 1. Downloading dumps 
 
 You can get dumps from a specific date (YYYYMMDD).
 
 ```sh
-$ ./asmapy.py download 20220202
+./asmapy.py download 20220202
 ```
 
 #### 2. Converting dump files to human-readable
@@ -43,12 +43,12 @@ $ ./asmapy.py download 20220202
 After downloading the dumps, they will be available in a folder (e.g. `data-20220202`), and you can use that directory in the following command to convert them to a human-readable format:
 
 ```sh
-$ ./asmapy.py to-human-readable -p data-20220202
+./asmapy.py to-human-readable -p data-20220202
 ```
 
 You can also pass more than one folder, this can be useful to combine data from different dates, e.g:
 ```sh
-$ ./asmapy.py to-human-readable -p data-20220202 data-20221212
+./asmapy.py to-human-readable -p data-20220202 data-20221212
 ```
 
 Use `--allasn` to fetch all ASN for every prefix instead of unique originating one.
@@ -61,19 +61,19 @@ After converting the dumps using `to-human-readable --singleoutput`, you're gonn
 For this reason, you can use the following command to convert them into a text file with iprange->asn mappings.
 
 ```sh
-$ ./asmapy.py to-mapping path/to/file
+./asmapy.py to-mapping path/to/file
 ```
 
 #### 4. Converting a file to binary
 
 ```sh
-$ ./asmapy.py to-binary path/to/file
+./asmapy.py to-binary path/to/file
 ```
 
 #### Comparing two files
 
 ```sh
-$ ./asmapy.py diff path/to/file1 path/to/file2
+./asmapy.py diff path/to/file1 path/to/file2
 ```
 
 Optional flags:
