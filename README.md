@@ -30,7 +30,7 @@ valid subcommands:
 ```
 
 
-#### 1. Downloading dumps
+#### 1. Downloading dumps 
 
 You can get dumps from a specific date (YYYYMMDD).
 
