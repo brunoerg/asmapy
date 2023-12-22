@@ -14,14 +14,6 @@ def parse(dirs=[], all_asn=False, single_output=True):
                     for entry in bgp:
                         if not isinstance(entry.body, TableDumpV2):
                             continue
-    for dir in dirs:
-        for entry_file in os.scandir(dir):
-            if entry_file.is_file():
-                with BGPDump(entry_file.path) as bgp:
-                    print(f"Processing {entry_file.name}...")
-                    for entry in bgp:
-                        if not isinstance(entry.body, TableDumpV2):
-                            continue
 
                         prefix = '%s/%d' % (entry.body.prefix, entry.body.prefixLength)
                         if not all_asn:
